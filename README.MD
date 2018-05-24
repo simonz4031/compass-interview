@@ -36,6 +36,7 @@ service will return json result
     "failedUrl": xx
 }
 ```
+if error happend , it simple return with all field with 0
 
 # How to Run
 ## Deployment
@@ -66,4 +67,4 @@ curl  -H "Accept:application/json" -X POST -d "jsonurl=https://raw.githubusercon
 
 # Follow up
 - use multithread and thread pool to enhance to performance
-- 
+- Error handle 
