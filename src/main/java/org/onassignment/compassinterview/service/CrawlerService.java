@@ -1,4 +1,4 @@
-package org.onassignment.compassinterview;
+package org.onassignment.compassinterview.service;
 
 import org.onassignment.compassinterview.pojo.CrawlerResult;
 import org.onassignment.compassinterview.utils.CrawlerUtils;

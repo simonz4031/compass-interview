@@ -1,13 +1,12 @@
 package org.onassignment.compassinterview;
 
 
-import com.fasterxml.jackson.core.JsonParseException;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.onassignment.compassinterview.pojo.CrawlerResult;
 import org.onassignment.compassinterview.pojo.JsonData;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
 import java.net.URI;
@@ -15,8 +14,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertTrue;
 import static org.onassignment.compassinterview.utils.CrawlerUtils.*;
 
 /**
@@ -25,7 +23,7 @@ import static org.onassignment.compassinterview.utils.CrawlerUtils.*;
  * @description:
  */
 
-@ExtendWith(SpringExtension.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class TestCrawler {
 
@@ -43,14 +41,14 @@ public class TestCrawler {
     public void testParseJsonbyWrong() throws IOException {
         String url = "http://nosuchhost.io/data.json";
         JsonData jsonData = null;
-        assertThrows(IOException.class, () -> parseJson("http://nosuchhost.io/data.json"));
+        assertTrue(parseJson("http://nosuchhost.io/data.json") == null);
 
-        assertThrows(IllegalArgumentException.class, () -> parseJson(""));
-        assertThrows(Exception.class, () -> parseJson("ftp://jsonplaceholder.typicode.com/posts/1"));
+        assertTrue(parseJson("") == null);
+        assertTrue(parseJson("ftp://jsonplaceholder.typicode.com/posts/1") == null);
 
-        assertThrows(JsonParseException.class, () -> parseJson("https://www.google.com"));
-        assertThrows(com.fasterxml.jackson.databind.exc.MismatchedInputException.class, () -> parseJson("https://www.w3schools.com/js/myTutorials.txt"));
-        assertThrows(Exception.class, () -> parseJson("https://jsonplaceholder.typicode.com/posts/1"));
+        assertTrue(parseJson("https://www.google.com") == null);
+        assertTrue(parseJson("https://www.w3schools.com/js/myTutorials.txt") == null);
+        assertTrue(parseJson("https://jsonplaceholder.typicode.com/posts/1") == null);
 
     }
 
