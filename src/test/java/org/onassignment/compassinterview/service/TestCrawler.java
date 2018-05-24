@@ -6,12 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.onassignment.compassinterview.pojo.CrawlerResult;
 import org.onassignment.compassinterview.pojo.JsonData;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -30,10 +28,6 @@ import static org.onassignment.compassinterview.utils.CrawlerUtils.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestCrawler {
-    @Autowired
-    CrawlerService crawlerService;
-
-    Method parseJson;
 
 
     @Test
@@ -64,9 +58,12 @@ public class TestCrawler {
     public void testParseLink() throws Exception {
         String url = "https://httpbin.org/links/7/0";
         Queue<String> links = new LinkedList<>();
+
         assertTrue(parseUrl(url, links) != null);
-        links.forEach(link -> System.out.println(link));
-        assertThat(links.size() > 0);
+
+        //links.forEach(link -> System.out.println(link));
+        assertThat(links.size() == 7);
+
         links.clear();
 
         //test Queue
@@ -83,11 +80,13 @@ public class TestCrawler {
 
         links.clear();
         assertTrue(parseUrl("https://www.google.com", links) != null);
-
         assertTrue(links.size() > 0);
+
         links.clear();
         assertTrue(parseUrl("https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json", links) != null);
-        assertTrue(parseUrl("https://jsonplaceholder.typicode.com/albums", links).length() > 0);
+
+        links.clear();
+        assertTrue(parseUrl("https://www.w3schools.com/js/myTutorials.txt", links) != null);
         assertTrue(links.size() == 0);
     }
 
@@ -120,7 +119,7 @@ public class TestCrawler {
 
         urls = new String[]{"https://httpbin.org/links/10", "https://httpbin.org/links/2"};
         result = bfsLinks(urls);
-        assertTrue(result.getTotalUrl() == 12 && result.getFailedUrl() == 0 );
+        assertTrue(result.getTotalUrl() == 12 && result.getFailedUrl() == 0);
     }
 
     @Test
