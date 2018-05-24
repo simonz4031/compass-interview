@@ -12,6 +12,10 @@ import org.onassignment.compassinterview.pojo.JsonData;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import static java.lang.Thread.sleep;
 
 /**
  * @author: qzhanghp
@@ -28,8 +32,7 @@ public class CrawlerUtils {
             return jsonData;
         } catch (MismatchedInputException e) {
 
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
 
         } catch (JsonParseException e) {
 
@@ -78,10 +81,9 @@ public class CrawlerUtils {
             //if never visited
             if (!map.containsKey(url)) {
 
-                map.put(url, 0);
+                //map.put(url, 0);
+                String location = parseUrl(url, queue);
                 result.incTotal();
-
-                String location = CrawlerUtils.parseUrl(url, queue);
                 if (location != null) {
 
                     map.put(location, 1);
@@ -97,6 +99,83 @@ public class CrawlerUtils {
                 }
             }
         }
+        return result;
+    }
+
+    public static CrawlerResult bfsConcurrentLinks(String[] links) {
+        CrawlerResult result = new CrawlerResult(0, 0, 0);
+        Map<String, Integer> map = new ConcurrentHashMap<>();
+        Queue<String> queue = new ConcurrentLinkedQueue<>(Arrays.asList(links));
+        List<Thread> threads = new ArrayList<>();
+
+        while (true) {
+            if (queue.isEmpty()) break;
+            String url = queue.poll();
+
+            //if never visited
+            if (!map.containsKey(url)) {
+
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        String location = null;
+                        synchronized (this ) {
+                            location = parseUrl(url, queue);
+
+                        }
+                        try {
+                            sleep(10);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        if (location != null) {
+
+                            synchronized (this) {
+                                map.put(location, 1);
+
+
+                                if (!location.equals(url)) {
+                                    map.put(url, 0);
+                                }
+                            }
+                        } else {
+
+                            synchronized (this) {
+                                map.put(url, -1);
+                                //result.incFailed();
+                            }
+                        }
+                    }
+                });
+
+                thread.start();
+                try {
+                    sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                threads.add(thread);
+
+            }
+        }
+
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        for (Integer v : map.values()){
+            if (v.equals(1))
+                result.incSuccessful();
+            else if (v.equals(-1))
+                result.incFailed();
+
+        }
+        result.setTotalUrl(result.getFailedUrl() + result.getSuccessfulUrl());
         return result;
     }
 

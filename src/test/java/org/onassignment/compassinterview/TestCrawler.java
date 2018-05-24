@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.onassignment.compassinterview.pojo.CrawlerResult;
 import org.onassignment.compassinterview.pojo.JsonData;
+import org.onassignment.compassinterview.utils.CrawlerUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -122,9 +123,13 @@ public class TestCrawler {
 
     @Test
     public void testUri() throws Exception {
-        URI uri = new URI("http://www.google.com/voice");
-        String path = uri.getHost();
-        System.out.println(path);
+        String url = "https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json";
+        long startTime = System.currentTimeMillis();
+        System.out.println(CrawlerUtils.bfsConcurrentLinks(parseJson(url).getLinks()));
+        System.out.println("time for concurrent is:" + (System.currentTimeMillis() - startTime));
+        startTime = System.currentTimeMillis();
+//        System.out.println(CrawlerUtils.bfsLinks(parseJson(url).getLinks()));
+//        System.out.println("time for non thread is:" + (System.currentTimeMillis() - startTime));
     }
 
 }
