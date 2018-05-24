@@ -1,4 +1,4 @@
-package org.onassignment.compassinterview.service;
+package org.onassignment.compassinterview;
 
 
 import com.fasterxml.jackson.core.JsonParseException;

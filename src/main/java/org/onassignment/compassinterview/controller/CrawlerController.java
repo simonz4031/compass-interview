@@ -1,7 +1,7 @@
 package org.onassignment.compassinterview.controller;
 
 import org.onassignment.compassinterview.pojo.CrawlerResult;
-import org.onassignment.compassinterview.service.CrawlerService;
+import org.onassignment.compassinterview.CrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
