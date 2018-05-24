@@ -27,7 +27,7 @@ the Crawler will expose a get and post API
 get the http://{server}:{port}/  will fetch all the url define in application.properties file which is the above  github josn file
 post the http://{server}:{port}/ via jsonurl=your_json_file_url can let service fetch the url you give
 
-##return
+## return
 service will return json result 
 ``` 
 {
@@ -37,7 +37,7 @@ service will return json result
 }
 ```
 
-#How to Run
+# How to Run
 ## Deployment
 
 - Send us a link to your solution's git repo.
