@@ -67,4 +67,4 @@ curl  -H "Accept:application/json" -X POST -d "jsonurl=https://raw.githubusercon
 
 # Follow up
 - use multithread and thread pool to enhance to performance
-- Error handle 
+- Error and Exception handle 
