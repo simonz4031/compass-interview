@@ -66,6 +66,7 @@ curl  -H "Accept:application/json" -X POST -d "jsonurl=https://raw.githubusercon
 - Any amount of building and packaging in order to run is fine; however, the overall goal is to run with **minimal user interaction**. (i.e. one command is usually nice, but not required)
 
 # Follow up
-- use multithread and thread pool to enhance to performance
+- use multithread and thread pool to enhance to performance 
+    implement with concurrent version for 6x speed at 5/24 11am 
 - global Error and Exception handle 
 - etc
