@@ -2,15 +2,10 @@ package org.onassignment.compassinterview;
 
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.onassignment.compassinterview.pojo.CrawlerResult;
 import org.onassignment.compassinterview.pojo.JsonData;
-import org.onassignment.compassinterview.utils.CrawlerUtils;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -24,8 +19,7 @@ import static org.onassignment.compassinterview.utils.CrawlerUtils.*;
  * @description:
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+
 public class TestCrawler {
 
 
@@ -121,12 +115,5 @@ public class TestCrawler {
         assertTrue(result.getTotalUrl() == 12 && result.getFailedUrl() == 0);
     }
 
-    @Test
-    public void testUri() throws Exception {
-        String url = "https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json";
-//        startTime = System.currentTimeMillis();
-//        System.out.println(CrawlerUtils.bfsLinks(parseJson(url).getLinks()));
-//        System.out.println("time for non thread is:" + (System.currentTimeMillis() - startTime));
-    }
 
 }

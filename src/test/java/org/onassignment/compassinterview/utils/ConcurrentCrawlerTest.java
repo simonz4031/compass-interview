@@ -3,9 +3,7 @@ package org.onassignment.compassinterview.utils;
 import org.junit.Test;
 import org.onassignment.compassinterview.pojo.CrawlerResult;
 
-import static org.junit.Assert.*;
-import static org.onassignment.compassinterview.utils.CrawlerUtils.bfsLinks;
-import static org.onassignment.compassinterview.utils.CrawlerUtils.parseJson;
+import static org.junit.Assert.assertTrue;
 
 public class ConcurrentCrawlerTest {
 
