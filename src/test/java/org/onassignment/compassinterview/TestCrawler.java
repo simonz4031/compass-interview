@@ -124,10 +124,7 @@ public class TestCrawler {
     @Test
     public void testUri() throws Exception {
         String url = "https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json";
-        long startTime = System.currentTimeMillis();
-        System.out.println(CrawlerUtils.bfsConcurrentLinks(parseJson(url).getLinks()));
-        System.out.println("time for concurrent is:" + (System.currentTimeMillis() - startTime));
-        startTime = System.currentTimeMillis();
+//        startTime = System.currentTimeMillis();
 //        System.out.println(CrawlerUtils.bfsLinks(parseJson(url).getLinks()));
 //        System.out.println("time for non thread is:" + (System.currentTimeMillis() - startTime));
     }

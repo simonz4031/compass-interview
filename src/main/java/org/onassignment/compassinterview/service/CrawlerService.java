@@ -1,10 +1,11 @@
 package org.onassignment.compassinterview.service;
 
 import org.onassignment.compassinterview.pojo.CrawlerResult;
+import org.onassignment.compassinterview.utils.ConcurrentCrawler;
+import org.onassignment.compassinterview.utils.CrawlerUtils;
 import org.springframework.stereotype.Service;
 
-import static org.onassignment.compassinterview.utils.CrawlerUtils.bfsConcurrentLinks;
-import static org.onassignment.compassinterview.utils.CrawlerUtils.bfsLinks;
+
 import static org.onassignment.compassinterview.utils.CrawlerUtils.parseJson;
 
 /**
@@ -15,7 +16,12 @@ import static org.onassignment.compassinterview.utils.CrawlerUtils.parseJson;
 @Service
 public class CrawlerService {
     public CrawlerResult getCrawlerResult(String url) {
-        //return bfsLinks(parseJson(url).getLinks());
-        return bfsConcurrentLinks(parseJson(url).getLinks());
+
+        try {
+            return new ConcurrentCrawler( CrawlerUtils.parseJson(url).getLinks()).bfsLinks();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new CrawlerResult(0,0,0);
     }
 }
