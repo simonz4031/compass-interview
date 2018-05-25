@@ -21,18 +21,18 @@ public class ConcurrentCrawlerTest {
         System.out.println(result);
         assertTrue(result.getTotalUrl() == 2 && result.getFailedUrl() == 2);
 
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
         urls = new String[]{"http://www.not-google.com", "", "http", "http://192.168.11.300", "file:///tmp", "192.168.11.254"};
         result = new ConcurrentCrawler(urls).bfsLinks();
         System.out.println(result);
         assertTrue(result.getFailedUrl() == 5);
 
 
-        Thread.sleep(2000);
-        urls = new String[]{"https://httpbin.org/links/10", "https://httpbin.org/links/2"};
+        Thread.sleep(3000);
+        urls = new String[]{"https://httpbin.org/links/8", "https://httpbin.org/links/2"};
         result = new ConcurrentCrawler(urls).bfsLinks();
         System.out.println(result);
-        assertTrue(result.getTotalUrl() == 12 && result.getFailedUrl() == 0);
+        assertTrue(result.getTotalUrl() == 10 && result.getFailedUrl() == 0);
         long startTime = System.currentTimeMillis();
         System.out.println(new ConcurrentCrawler( CrawlerUtils.parseJson(jsonurl).getLinks()).bfsLinks());
         System.out.println("time for concurrent is:" + (System.currentTimeMillis() - startTime));

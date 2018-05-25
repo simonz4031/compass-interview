@@ -10,13 +10,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static java.lang.Thread.sleep;
+
 
 
 public class ConcurrentCrawler {
 
     private static AtomicInteger atomic = new AtomicInteger(0);
-    List<Thread> threads;
+
     private CrawlerResult result;
     private ConcurrentHashMap<String, Integer> map;
     private Queue<String> queue;
@@ -27,7 +27,6 @@ public class ConcurrentCrawler {
         map = new ConcurrentHashMap<>();
         queue = new ConcurrentLinkedQueue<>();
         queue.addAll(Arrays.asList(urls));
-        threads = new ArrayList<>();
     }
 
 
@@ -37,7 +36,6 @@ public class ConcurrentCrawler {
             Document document = Jsoup.connect(url).get();
             Elements links = document.select("a[href]");
 
-            //queue.addAll((Collection<? extends String>) links.stream().map(link -> link.attr("abs:href")).filter(linkurl -> !map.containsKey(linkurl)));
             links.forEach(link -> {
                 String linkurl = link.attr("abs:href");
                 if (!map.containsKey(linkurl))
@@ -48,6 +46,7 @@ public class ConcurrentCrawler {
         } catch (Exception e) {
             System.out.println("parse " + url + " failed");
         }
+
         return null;
     }
 
@@ -57,12 +56,13 @@ public class ConcurrentCrawler {
                 if (atomic.get() == 0)
                     break;
                 else {
-                    sleep(10);
+                    Thread.sleep(10);
                     continue;
                 }
             }
 
             String url = queue.poll();
+
             if (!map.containsKey(url)) {
                 Thread thread = new Thread(() -> {
 
@@ -82,7 +82,7 @@ public class ConcurrentCrawler {
                 });
 
                 thread.start();
-                threads.add(thread);
+                Thread.sleep(10);
             }
         }
 
