@@ -1,16 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: org.onassignment.compassinterview.controller.CrawlerControllerTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 28.99 s <<< FAILURE! - in org.onassignment.compassinterview.controller.CrawlerControllerTest
-testGetParseUrl(org.onassignment.compassinterview.controller.CrawlerControllerTest)  Time elapsed: 26.254 s  <<< ERROR!
-org.springframework.web.util.NestedServletException: Handler dispatch failed; nested exception is java.lang.OutOfMemoryError: unable to create new native thread
-	at org.onassignment.compassinterview.controller.CrawlerControllerTest.testGetParseUrl(CrawlerControllerTest.java:51)
-Caused by: java.lang.OutOfMemoryError: unable to create new native thread
-	at org.onassignment.compassinterview.controller.CrawlerControllerTest.testGetParseUrl(CrawlerControllerTest.java:51)
-
-testPostParseUrl(org.onassignment.compassinterview.controller.CrawlerControllerTest)  Time elapsed: 0.059 s  <<< ERROR!
-org.springframework.web.util.NestedServletException: Handler dispatch failed; nested exception is java.lang.OutOfMemoryError: unable to create new native thread
-	at org.onassignment.compassinterview.controller.CrawlerControllerTest.testPostParseUrl(CrawlerControllerTest.java:63)
-Caused by: java.lang.OutOfMemoryError: unable to create new native thread
-	at org.onassignment.compassinterview.controller.CrawlerControllerTest.testPostParseUrl(CrawlerControllerTest.java:63)
-
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.936 s - in org.onassignment.compassinterview.controller.CrawlerControllerTest

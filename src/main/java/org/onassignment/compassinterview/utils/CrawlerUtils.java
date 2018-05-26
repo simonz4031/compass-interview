@@ -44,7 +44,7 @@ public class CrawlerUtils {
     }
 
     /**
-     * @param url       the url need be pasrse
+     * @param url       the url need be pasrse, get all <a></a> links from the given url
      * @param linkLists the queue
      * @return the url after HTTP 2XX or HTTP 3XX redirect , null if failed for HTTP 4XX HTTP 5XX
      */
@@ -55,7 +55,6 @@ public class CrawlerUtils {
             Elements links = document.select("a[href]");
 
             for (Element link : links) {
-
                 linkLists.add(link.attr("abs:href"));
             }
             return document.location();
@@ -84,16 +83,14 @@ public class CrawlerUtils {
                 //map.put(url, 0);
                 String location = parseUrl(url, queue);
                 result.incTotal();
-                if (location != null) {
 
+                if (location != null) {
                     map.put(location, 1);
                     result.incSuccessful();
-                    //System.out.println(location);
 
                     if (!location.equals(url))
                         map.put(url, 1);
                 } else {
-
                     map.put(url, -1);
                     result.incFailed();
                 }
