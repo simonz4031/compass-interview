@@ -1,6 +1,0 @@
-org/onassignment/compassinterview/CompassInterviewApplication.class
-org/onassignment/compassinterview/service/CrawlerService.class
-org/onassignment/compassinterview/controller/CrawlerController.class
-org/onassignment/compassinterview/pojo/CrawlerResult.class
-org/onassignment/compassinterview/pojo/JsonData.class
-org/onassignment/compassinterview/utils/CrawlerUtils.class
