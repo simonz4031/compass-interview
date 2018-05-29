@@ -13,3 +13,4 @@ curl  -H "Accept:application/json" http://localhost:8080/
 curl  -H "Accept:application/json" -X POST -d "jsonurl=https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json" http://localhost:8080/
 echo "demo error request here:"
 curl  -H "Accept:application/json" -X POST -d "jsonurl=https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json2" http://localhost:8080/
+echo "done!"
