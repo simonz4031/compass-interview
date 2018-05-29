@@ -11,3 +11,5 @@ echo "wait 30s to let service start"
 sleep 30s
 curl  -H "Accept:application/json" http://localhost:8080/
 curl  -H "Accept:application/json" -X POST -d "jsonurl=https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json" http://localhost:8080/
+Echo "demo error request here:"
+curl  -H "Accept:application/json" -X POST -d "jsonurl=https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json2" http://localhost:8080/
