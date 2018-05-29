@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -19,12 +20,12 @@ import java.util.stream.Collectors;
 
 public class ConcurrentCrawler {
     //use atomic to check is all the thread done with url parse
-    private AtomicInteger atomic = new AtomicInteger(0);
+    private AtomicInteger atomic;
 
     private CrawlerResult result;
 
     //store the visited url, 1 as successful -1 as failed ,0 as visited
-    private ConcurrentHashMap<String, Integer> visitedMap;
+    private Map<String, Integer> visitedMap;
 
     private Queue<String> urlQueue;
     private String[] urlLinks;
@@ -43,6 +44,7 @@ public class ConcurrentCrawler {
 
     private void InitialData() {
         result = new CrawlerResult(0, 0, 0);
+        atomic =  new AtomicInteger(0);
         visitedMap = new ConcurrentHashMap<>();
         urlQueue = new ConcurrentLinkedQueue<>();
         urlQueue.addAll(Arrays.stream(urlLinks)
