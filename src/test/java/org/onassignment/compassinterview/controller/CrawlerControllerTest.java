@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 /**
  * @author: qzhanghp
  * @date: 5/24/18
@@ -30,11 +31,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 public class CrawlerControllerTest {
     @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    @Autowired
     CrawlerService crawlerService;
-
+    @Autowired
+    private WebApplicationContext webApplicationContext;
     private MockMvc mockMvc;
 
     @Before
@@ -45,9 +44,7 @@ public class CrawlerControllerTest {
     }
 
     @Test
-    public void testGetParseUrl() throws  Exception {
-        System.out.println("---" + mockMvc + " ---" + webApplicationContext);
-
+    public void testGetParseUrl() throws Exception {
         mockMvc.perform(get("/")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
@@ -58,15 +55,49 @@ public class CrawlerControllerTest {
     }
 
     @Test
-    public void testPostParseUrl() throws  Exception {
-        System.out.println("---" + mockMvc + " ---" + webApplicationContext);
+    public void testGetWrongUrl() throws Exception {
+        mockMvc.perform(get("/nosuch")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().is4xxClientError());
+        mockMvc.perform(get("/")
+                .param("jsonurl", "https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testPostParseUrl() throws Exception {
         mockMvc.perform(post("/")
-                .param("jsonurl","https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json")
+                .param("jsonurl", "https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(3))
                 .andExpect(jsonPath("$.totalUrl").value(Matchers.greaterThan(0)));
+    }
 
+    @Test
+    public void testWrongPost() throws Exception {
+        mockMvc.perform(post("/")
+                .param("hello", "https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().is4xxClientError());
+
+        mockMvc.perform(post("/")
+                .param("jsonurl", "https://raw.githubusercontent.com/OnAssignment/master.json")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$.retCode").value(-100));
+
+        mockMvc.perform(post("/nourl")
+                .param("jsonurl", "https://raw.githubusercontent.com/OnAssignment/compass-interview/master/data.json")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isNotFound());
+
+
+        mockMvc.perform(post("/")
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isBadRequest());
     }
 
 }

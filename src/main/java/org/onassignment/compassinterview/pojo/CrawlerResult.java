@@ -6,15 +6,18 @@ package org.onassignment.compassinterview.pojo;
  * @description:
  */
 public class CrawlerResult {
+
     private int totalUrl;
     private int successfulUrl;
     private int failedUrl;
 
     public CrawlerResult(int totalUrl, int successfulUrl, int failedUrl) {
+
         this.totalUrl = totalUrl;
         this.successfulUrl = successfulUrl;
         this.failedUrl = failedUrl;
     }
+
 
     public int getTotalUrl() {
         return totalUrl;
@@ -55,8 +58,8 @@ public class CrawlerResult {
 
     @Override
     public String toString() {
-        return "Result " +
-                "total number of http requests performed = " + totalUrl +
+        return "Resultz; " +
+                 "total number of http requests performed = " + totalUrl +
                 ", total number of successful requests = " + successfulUrl +
                 ", total number of failed requests = " + failedUrl ;
     }

@@ -21,14 +21,14 @@ public class CrawlerController {
 
     @GetMapping("/")
     @ResponseBody
-    public CrawlerResult parseUrl() {
+    public CrawlerResult parseUrl() throws Exception {
         //System.out.println(jsonUrl);
         return crawlerService.getCrawlerResult(jsonUrl);
     }
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
     @ResponseBody
-    public CrawlerResult putParseUrl(@RequestParam("jsonurl") String url) {
+    public CrawlerResult postParseUrl(@RequestParam("jsonurl") String url) throws Exception{
         return crawlerService.getCrawlerResult(url);
     }
 }
